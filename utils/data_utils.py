@@ -92,8 +92,7 @@ class Batch_Gen():
         # Reshape idx
         idx = idx.reshape((self.n_batches + self.n_historical_batches, self.batch_dim)).astype(int)
 
-        # TODO: Debug with single batch
-        # idx = np.repeat(idx[0][None,...], 130,axis=0)
+
 
         historical_batches_score = np.zeros((self.n_historical_batches, self.batch_dim))
         historical_batches_ESCS = np.zeros((self.n_historical_batches, self.batch_dim))

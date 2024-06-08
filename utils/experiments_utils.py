@@ -310,8 +310,7 @@ def build_approach(historical_data: np.ndarray, approach: str, matrix_A: np.ndar
 
     # The metrics weights are 1
     metrics_weight = {name: 1 for name in metrics_dict}
-    # TODO: debug only on fairness metric
-    #metrics_weight['mean_squared_error'] = 0
+
 
     # Define objective function & dynamics
     if approach.lower() == 'fairdas':
@@ -503,9 +502,7 @@ def run_experiment(approaches: list, config: dict, list_metrics: list, experimen
     metrics_record, rankings_record, actions_record, modified_scores_records, batches_records, opt_records = create_records(
         approaches, list_metrics, seeds)
 
-    # TODO: debug
-    z = np.linspace(0, 1, 1000)
-    g = np.stack([z ** d for d in np.arange(DEGREE + 1)], axis=1)
+
 
     # Iterate over seed
     for seed in seeds:
@@ -553,18 +550,13 @@ def run_experiment(approaches: list, config: dict, list_metrics: list, experimen
             n_batches = len(batches['score'])
             for i in range(n_batches):
 
-                # TODO: debug
-                if actions == 'polynomial_fn':
-                    p = parameters[:DEGREE+1]
-                    w_z = g @ p
-                    plt.scatter(y=w_z, x=z, s=1, )
-                    plt.ylim(0, 10)
+
 
                 batch_scores = batches['score'][i]
                 batch_escs = batches['ESCS'][i]
                 batch_escs_discr = batches['ESCS_discretized'][i]
 
-                # TODO: DEBUG utils
+
                 for name in approach_components['metrics_dict']:
                     approach_components['metrics_dict'][name].folder = record_path
 
@@ -583,14 +575,6 @@ def run_experiment(approaches: list, config: dict, list_metrics: list, experimen
                 # Store current metrics
                 for idx, m in enumerate(list_metrics):
                     metrics_record[approach][m][seed].append(float(current_metrics[idx]))
-
-                    # TODO: debug
-                    if scaling != 'None':
-                        feat = 'max' if scaling == 'normalization' else 'q3'
-                        if current_metrics[idx] > metrics_record[approach]['scaling_factors'][seed][m][feat] + 10:
-                            print(
-                                f"{m}: {current_metrics[idx]} > {metrics_record[approach]['scaling_factors'][seed][m][feat]} + 10")
-                            raise ValueError
 
                 # Store current actions
                 actions_record[approach][seed].append(parameters)

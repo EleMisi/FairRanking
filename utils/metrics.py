@@ -114,8 +114,6 @@ class DIDI(Metric):
         super().__init__(actions)
         self.impact_function = impact_function
 
-        # TODO: DEBUG
-        self.folder = None
 
     def __call__(self, batch_scores: np.ndarray, batch_escs: np.ndarray, batch_escs_discr: np.ndarray, parameters: np.ndarray):
         """Computes the Disparate Impact Discrimination Index for Regression Tasks given the impact function output
@@ -252,7 +250,6 @@ class GeDI(Metric):
         gedi_y = self.compute_GeDI(x, y=self.modified_scores, degree=self.degree)
         gedi = gedi_y if gedi_y > 0 else 0.0
 
-        # FIXME: scaling??
         gedi = self.scale(gedi)
 
         return gedi
