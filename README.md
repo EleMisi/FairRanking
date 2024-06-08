@@ -1,5 +1,6 @@
-# FAiRDAS
-
+# FairRanking
+This repository provides the code for reproducing the results obtained in the paper 
+*Long-Term Fairness Strategies in Ranking with Continuous Sensitive Attributes* (currently under revision at AEQUITAS@ECAI24)
 
 ### Prerequisites
 
